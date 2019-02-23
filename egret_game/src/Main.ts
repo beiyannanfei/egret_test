@@ -114,8 +114,8 @@ class Main extends eui.UILayer {
         let tx: egret.TextField = new egret.TextField();
         tx.text = "I'm Jack, I will use Egret create a fantasy mobile game!";
         tx.size = 32;
-        tx.x = 100;
-        tx.y = 100;
+        tx.x = 20;
+        tx.y = 20;
         tx.width = this.stage.stageWidth - 40;
         this.addChild(tx);
 
@@ -124,6 +124,38 @@ class Main extends eui.UILayer {
         tx.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandler, this);
 
 
+        let tx_1: egret.TextField = new egret.TextField();
+        tx_1.text = "tx.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandler, this)";
+        tx_1.size = 32;
+        tx_1.x = 20;
+        tx_1.y = 150;
+        tx_1.width = this.stage.stageWidth - 40;
+        this.addChild(tx_1);
+
+        tx_1.touchEnabled = true;
+        tx_1.addEventListener(egret.TouchEvent.TOUCH_TAP, function (evt: egret.TouchEvent): void {
+            tx_1.text = tx_1.text + " NEWAA.";
+            tx_1.textColor = 0xffdd99;
+        }, this);
+
+
+        //显示图片
+        let batman: egret.Bitmap = new egret.Bitmap(RES.getRes("checkbox_select_down_png"));
+        batman.x = 20;
+        batman.y = 280;
+        this.addChild(batman);
+        let captain: egret.Bitmap = new egret.Bitmap(RES.getRes("checkbox_select_down_png"));
+        captain.x = 60;
+        captain.y = 280;
+        this.addChild(captain);
+        let superman: egret.Bitmap = new egret.Bitmap(RES.getRes("checkbox_select_down_png"));
+        superman.x = 100;
+        superman.y = 280;
+        this.addChild(superman);
+        let hulk: egret.Bitmap = new egret.Bitmap(RES.getRes("checkbox_select_down_png"));
+        hulk.x = 140;
+        hulk.y = 280;
+        this.addChild(hulk);
 
 
         /*let sky = this.createBitmapByName("bg_jpg");

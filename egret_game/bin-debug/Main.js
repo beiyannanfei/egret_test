@@ -181,7 +181,6 @@ var Main = (function (_super) {
         tx.x = 20;
         tx.y = 20;
         tx.width = this.stage.stageWidth - 40;
-        tx.height = this.stage.stageHeight;
         this.addChild(tx);
         //响应用户操作
         tx.touchEnabled = true;
@@ -190,10 +189,36 @@ var Main = (function (_super) {
         tx_1.text = "tx.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandler, this)";
         tx_1.size = 32;
         tx_1.x = 20;
-        tx_1.y = 20;
+        tx_1.y = 150;
         tx_1.width = this.stage.stageWidth - 40;
-        tx_1.height = this.stage.stageHeight - 40;
-        // this.addChild(tx_1);
+        this.addChild(tx_1);
+        tx_1.touchEnabled = true;
+        tx_1.addEventListener(egret.TouchEvent.TOUCH_TAP, function (evt) {
+            tx_1.text = tx_1.text + " NEWAA.";
+            tx_1.textColor = 0xffdd99;
+        }, this);
+        //显示图片
+        var batman = new egret.Bitmap(RES.getRes("checkbox_select_down_png"));
+        batman.x = 20;
+        batman.y = 280;
+        this.addChild(batman);
+        var captain = new egret.Bitmap(RES.getRes("checkbox_select_down_png"));
+        captain.x = 60;
+        captain.y = 280;
+        this.addChild(captain);
+        var superman = new egret.Bitmap(RES.getRes("checkbox_select_down_png"));
+        superman.x = 100;
+        superman.y = 280;
+        this.addChild(superman);
+        var hulk = new egret.Bitmap(RES.getRes("checkbox_select_down_png"));
+        hulk.x = 140;
+        hulk.y = 280;
+        this.addChild(hulk);
+        //Tween动画效果
+        hulk.anchorOffsetX = 30;
+        hulk.anchorOffsetY = 40;
+        hulk.x += 30;
+        hulk.y += 40;
         /*let sky = this.createBitmapByName("bg_jpg");
         this.addChild(sky);
         let stageW = this.stage.stageWidth;
