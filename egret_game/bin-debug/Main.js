@@ -71,6 +71,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var tr = egret.sys.tr;
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -166,23 +167,53 @@ var Main = (function (_super) {
      * Create scene interface
      */
     Main.prototype.createGameScene = function () {
-        var sky = this.createBitmapByName("bg_jpg");
+        //绘制一个单色背景
+        var bg = new egret.Shape();
+        bg.graphics.beginFill(0x336699);
+        bg.graphics.drawRect(0, 0, this.stage.stageWidth, this.stage.stageHeight);
+        bg.graphics.endFill();
+        _super.prototype.addChild.call(this, bg); // <=>  this.addChild(bg)
+        // this.stage.scaleMode = egret.StageScaleMode.FIXED_WIDTH;     //模式下会保持原始宽高比缩放内容
+        //显示一些文字
+        var tx = new egret.TextField();
+        tx.text = "I'm Jack, I will use Egret create a fantasy mobile game!";
+        tx.size = 32;
+        tx.x = 20;
+        tx.y = 20;
+        tx.width = this.stage.stageWidth - 40;
+        tx.height = this.stage.stageHeight;
+        this.addChild(tx);
+        //响应用户操作
+        tx.touchEnabled = true;
+        tx.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandler, this);
+        var tx_1 = new egret.TextField();
+        tx_1.text = "tx.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandler, this)";
+        tx_1.size = 32;
+        tx_1.x = 20;
+        tx_1.y = 20;
+        tx_1.width = this.stage.stageWidth - 40;
+        tx_1.height = this.stage.stageHeight - 40;
+        // this.addChild(tx_1);
+        /*let sky = this.createBitmapByName("bg_jpg");
         this.addChild(sky);
-        var stageW = this.stage.stageWidth;
-        var stageH = this.stage.stageHeight;
+        let stageW = this.stage.stageWidth;
+        let stageH = this.stage.stageHeight;
         sky.width = stageW;
         sky.height = stageH;
-        var topMask = new egret.Shape();
+
+        let topMask = new egret.Shape();
         topMask.graphics.beginFill(0x000000, 0.5);
         topMask.graphics.drawRect(0, 0, stageW, 172);
         topMask.graphics.endFill();
         topMask.y = 33;
         this.addChild(topMask);
-        var icon = this.createBitmapByName("egret_icon_png");
+
+        let icon: egret.Bitmap = this.createBitmapByName("egret_icon_png");
         this.addChild(icon);
         icon.x = 26;
         icon.y = 33;
-        var line = new egret.Shape();
+
+        let line = new egret.Shape();
         line.graphics.lineStyle(2, 0xffffff);
         line.graphics.moveTo(0, 0);
         line.graphics.lineTo(0, 117);
@@ -190,7 +221,9 @@ var Main = (function (_super) {
         line.x = 172;
         line.y = 61;
         this.addChild(line);
-        var colorLabel = new egret.TextField();
+
+
+        let colorLabel = new egret.TextField();
         colorLabel.textColor = 0xffffff;
         colorLabel.width = stageW - 172;
         colorLabel.textAlign = "center";
@@ -199,7 +232,8 @@ var Main = (function (_super) {
         colorLabel.x = 172;
         colorLabel.y = 80;
         this.addChild(colorLabel);
-        var textfield = new egret.TextField();
+
+        let textfield = new egret.TextField();
         this.addChild(textfield);
         textfield.alpha = 0;
         textfield.width = stageW - 172;
@@ -209,12 +243,19 @@ var Main = (function (_super) {
         textfield.x = 172;
         textfield.y = 135;
         this.textfield = textfield;
-        var button = new eui.Button();
+
+        let button = new eui.Button();
         button.label = "Click!";
         button.horizontalCenter = 0;
         button.verticalCenter = 0;
         this.addChild(button);
         button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
+        */
+    };
+    Main.prototype.touchHandler = function (evt) {
+        var tx = evt.currentTarget;
+        tx.text = tx.text + " NEW.";
+        tx.textColor = 0x00ff00;
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。

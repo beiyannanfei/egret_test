@@ -27,6 +27,8 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////
 
+import tr = egret.sys.tr;
+
 class Main extends eui.UILayer {
 
 
@@ -35,15 +37,15 @@ class Main extends eui.UILayer {
 
         egret.lifecycle.addLifecycleListener((context) => {
             // custom lifecycle plugin
-        })
+        });
 
         egret.lifecycle.onPause = () => {
             egret.ticker.pause();
-        }
+        };
 
         egret.lifecycle.onResume = () => {
             egret.ticker.resume();
-        }
+        };
 
         //inject the custom material parser
         //注入自定义的素材解析器
@@ -58,9 +60,9 @@ class Main extends eui.UILayer {
     }
 
     private async runGame() {
-        await this.loadResource()
+        await this.loadResource();
         this.createGameScene();
-        const result = await RES.getResAsync("description_json")
+        const result = await RES.getResAsync("description_json");
         this.startAnimation(result);
         await platform.login();
         const userInfo = await platform.getUserInfo();
@@ -76,8 +78,7 @@ class Main extends eui.UILayer {
             await this.loadTheme();
             await RES.loadGroup("preload", 0, loadingView);
             this.stage.removeChild(loadingView);
-        }
-        catch (e) {
+        } catch (e) {
             console.error(e);
         }
     }
@@ -95,12 +96,37 @@ class Main extends eui.UILayer {
     }
 
     private textfield: egret.TextField;
+
     /**
      * 创建场景界面
      * Create scene interface
      */
     protected createGameScene(): void {
-        let sky = this.createBitmapByName("bg_jpg");
+        //绘制一个单色背景
+        let bg: egret.Shape = new egret.Shape();
+        bg.graphics.beginFill(0x336699);
+        bg.graphics.drawRect(0, 0, this.stage.stageWidth, this.stage.stageHeight);
+        bg.graphics.endFill();
+        super.addChild(bg); // <=>  this.addChild(bg)
+        // this.stage.scaleMode = egret.StageScaleMode.FIXED_WIDTH;     //模式下会保持原始宽高比缩放内容
+
+        //显示一些文字
+        let tx: egret.TextField = new egret.TextField();
+        tx.text = "I'm Jack, I will use Egret create a fantasy mobile game!";
+        tx.size = 32;
+        tx.x = 20;
+        tx.y = 20;
+        tx.width = this.stage.stageWidth - 40;
+        this.addChild(tx);
+
+        //响应用户操作
+        tx.touchEnabled = true;
+        tx.addEventListener(egret.TouchEvent.TOUCH_TAP, this.touchHandler, this);
+
+
+
+
+        /*let sky = this.createBitmapByName("bg_jpg");
         this.addChild(sky);
         let stageW = this.stage.stageWidth;
         let stageH = this.stage.stageHeight;
@@ -156,7 +182,15 @@ class Main extends eui.UILayer {
         button.verticalCenter = 0;
         this.addChild(button);
         button.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onButtonClick, this);
+        */
     }
+
+    private touchHandler(evt: egret.TouchEvent): void {
+        let tx: egret.TextField = evt.currentTarget;
+        tx.text = tx.text + " NEW.";
+        tx.textColor = 0x00ff00;
+    }
+
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
      * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
@@ -167,6 +201,7 @@ class Main extends eui.UILayer {
         result.texture = texture;
         return result;
     }
+
     /**
      * 描述文件加载成功，开始播放动画
      * Description file loading is successful, start to play the animation
@@ -188,9 +223,9 @@ class Main extends eui.UILayer {
             // Switch to described content
             textfield.textFlow = textFlow;
             let tw = egret.Tween.get(textfield);
-            tw.to({ "alpha": 1 }, 200);
+            tw.to({"alpha": 1}, 200);
             tw.wait(2000);
-            tw.to({ "alpha": 0 }, 200);
+            tw.to({"alpha": 0}, 200);
             tw.call(change, this);
         };
 
