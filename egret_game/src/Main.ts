@@ -158,6 +158,11 @@ class Main extends eui.UILayer {
         this.addChild(hulk);
 
 
+        //播放声音
+        let sound: egret.Sound = RES.getRes("test.mp3");
+        let channel: egret.SoundChannel = sound.play(0, 1);
+
+
         /*let sky = this.createBitmapByName("bg_jpg");
         this.addChild(sky);
         let stageW = this.stage.stageWidth;
