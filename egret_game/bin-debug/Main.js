@@ -214,12 +214,12 @@ var Main = (function (_super) {
         hulk.x = 140;
         hulk.y = 280;
         this.addChild(hulk);
-        //播放声音
-        var sound = RES.getRes("test.mp3");
-        var channel = sound.play(0, 1);
-        channel.addEventListener(egret.Event.SOUND_COMPLETE, function (event) {
-            console.log("onSoundComplete"); //然而并没有播放
+        var urlreq = new egret.URLRequest("http://httpbin.org/user-agent");
+        var urlloader = new egret.URLLoader();
+        urlloader.addEventListener(egret.Event.COMPLETE, function (evt) {
+            console.log(evt.target.data);
         }, this);
+        urlloader.load(urlreq);
         /*let sky = this.createBitmapByName("bg_jpg");
         this.addChild(sky);
         let stageW = this.stage.stageWidth;

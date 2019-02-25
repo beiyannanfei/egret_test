@@ -158,12 +158,13 @@ class Main extends eui.UILayer {
         this.addChild(hulk);
 
 
-        //播放声音
-        let sound: egret.Sound = RES.getRes("test.mp3");
-        let channel: egret.SoundChannel = sound.play(0, 1);
-        channel.addEventListener(egret.Event.SOUND_COMPLETE, function (event: egret.Event): void {
-            console.log("onSoundComplete"); //然而并没有播放
+        //常规网络通讯
+        let urlreq: egret.URLRequest = new egret.URLRequest("http://httpbin.org/user-agent");
+        let urlloader: egret.URLLoader = new egret.URLLoader();
+        urlloader.addEventListener(egret.Event.COMPLETE, function (evt: egret.Event): void {
+            console.log(evt.target.data);
         }, this);
+        urlloader.load(urlreq);
 
 
         /*let sky = this.createBitmapByName("bg_jpg");

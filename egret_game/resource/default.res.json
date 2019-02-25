@@ -7,11 +7,6 @@
   ],
   "resources": [
     {
-      "name": "test.mp3",
-      "type": "sound",
-      "url": "assets/test.mp3"
-    },
-    {
       "url": "assets/CheckBox/checkbox_select_disabled.png",
       "type": "image",
       "name": "checkbox_select_disabled_png"
