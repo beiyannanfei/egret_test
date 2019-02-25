@@ -36,5 +36,6 @@ class Main extends egret.DisplayObjectContainer {
     private onAddToStage(event: egret.Event) {
         let _myGrid: MyGrid = new MyGrid();
         this.addChild(_myGrid);
+        console.log("绘制矩形完成.");
     }
 }
