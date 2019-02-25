@@ -31,11 +31,11 @@ class Main extends egret.DisplayObjectContainer {
     public constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
+        console.log("绘制矩形完成.");
     }
 
     private onAddToStage(event: egret.Event) {
         let _myGrid: MyGrid = new MyGrid();
         this.addChild(_myGrid);
-        console.log("绘制矩形完成.");
     }
 }
