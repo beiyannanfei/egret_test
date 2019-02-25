@@ -214,11 +214,12 @@ var Main = (function (_super) {
         hulk.x = 140;
         hulk.y = 280;
         this.addChild(hulk);
-        //Tween动画效果
-        hulk.anchorOffsetX = 30;
-        hulk.anchorOffsetY = 40;
-        hulk.x += 30;
-        hulk.y += 40;
+        //播放声音
+        var sound = RES.getRes("test.mp3");
+        var channel = sound.play(0, 1);
+        channel.addEventListener(egret.Event.SOUND_COMPLETE, function (event) {
+            console.log("onSoundComplete"); //然而并没有播放
+        }, this);
         /*let sky = this.createBitmapByName("bg_jpg");
         this.addChild(sky);
         let stageW = this.stage.stageWidth;

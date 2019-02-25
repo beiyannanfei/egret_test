@@ -161,6 +161,9 @@ class Main extends eui.UILayer {
         //播放声音
         let sound: egret.Sound = RES.getRes("test.mp3");
         let channel: egret.SoundChannel = sound.play(0, 1);
+        channel.addEventListener(egret.Event.SOUND_COMPLETE, function (event: egret.Event): void {
+            console.log("onSoundComplete"); //然而并没有播放
+        }, this);
 
 
         /*let sky = this.createBitmapByName("bg_jpg");
