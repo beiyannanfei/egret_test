@@ -41,11 +41,26 @@ var Main = (function (_super) {
     function Main() {
         var _this = _super.call(this) || this;
         _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.onAddToStage, _this);
+        _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.onAddToStageAnchor, _this);
         return _this;
     }
+    Main.prototype.onAddToStageAnchor = function (event) {
+        var shp = new egret.Shape();
+        shp.graphics.beginFill(0x00ff00);
+        shp.graphics.drawRect(0, 0, 100, 100);
+        shp.graphics.endFill();
+        shp.x = 120;
+        shp.y = 120;
+        this.addChild(shp);
+        shp.touchEnabled = true;
+        shp.addEventListener(egret.TouchEvent.TOUCH_TAP, function (evt) {
+            this.anchorOffsetX = 50;
+        }, this);
+    };
     Main.prototype.onAddToStage = function (event) {
         var _myGrid = new MyGrid();
         this.addChild(_myGrid);
+        console.log("绘制矩形完成.");
     };
     return Main;
 }(egret.DisplayObjectContainer));

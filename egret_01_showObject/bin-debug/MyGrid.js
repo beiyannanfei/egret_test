@@ -1,4 +1,5 @@
 /**
+ * 绘制四个矩形
  * Created by wyq on 2019-02-25.
  */
 var __reflect = (this && this.__reflect) || function (p, c, t) {

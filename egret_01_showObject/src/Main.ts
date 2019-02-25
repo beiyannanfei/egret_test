@@ -31,11 +31,28 @@ class Main extends egret.DisplayObjectContainer {
     public constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStage, this);
-        console.log("绘制矩形完成.");
+
+        this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onAddToStageAnchor, this);
+    }
+
+    private onAddToStageAnchor(event: egret.Event) {
+        let shp: egret.Shape = new egret.Shape();
+        shp.graphics.beginFill(0x00ff00);
+        shp.graphics.drawRect(0, 0, 100, 100);
+        shp.graphics.endFill();
+        shp.x = 120;
+        shp.y = 120;
+        this.addChild(shp);
+
+        shp.touchEnabled = true;
+        shp.addEventListener(egret.TouchEvent.TOUCH_TAP, function (evt: egret.TouchEvent): void {
+            this.anchorOffsetX = 50;    //修改锚点的位置，让锚点居于正方形左上角x轴 50 像素的位置
+        }, this);
     }
 
     private onAddToStage(event: egret.Event) {
         let _myGrid: MyGrid = new MyGrid();
         this.addChild(_myGrid);
+        console.log("绘制矩形完成.");
     }
 }
