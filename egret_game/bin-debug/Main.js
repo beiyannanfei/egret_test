@@ -214,12 +214,25 @@ var Main = (function (_super) {
         hulk.x = 140;
         hulk.y = 280;
         this.addChild(hulk);
+        //常规网络通讯
         var urlreq = new egret.URLRequest("http://httpbin.org/user-agent");
         var urlloader = new egret.URLLoader();
         urlloader.addEventListener(egret.Event.COMPLETE, function (evt) {
             console.log(evt.target.data);
         }, this);
         urlloader.load(urlreq);
+        var self = this;
+        this.webSocket = new egret.WebSocket();
+        this.webSocket.addEventListener(egret.ProgressEvent.SOCKET_DATA, function (e) {
+            var msg = self.webSocket.readUTF();
+            console.log("websocket Receive data:" + msg);
+        }, this);
+        this.webSocket.addEventListener(egret.Event.CONNECT, function () {
+            var cmd = "Hello Egret WebSocket";
+            console.log("The websocket connection is successful, send data: " + cmd);
+            self.webSocket.writeUTF(cmd);
+        }, this);
+        this.webSocket.connect("echo.websocket.org", 80);
         /*let sky = this.createBitmapByName("bg_jpg");
         this.addChild(sky);
         let stageW = this.stage.stageWidth;

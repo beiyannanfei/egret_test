@@ -97,6 +97,8 @@ class Main extends eui.UILayer {
 
     private textfield: egret.TextField;
 
+    private webSocket: egret.WebSocket;
+
     /**
      * 创建场景界面
      * Create scene interface
@@ -165,6 +167,22 @@ class Main extends eui.UILayer {
             console.log(evt.target.data);
         }, this);
         urlloader.load(urlreq);
+
+        //使用WebSocket通讯
+        let self = this;
+        this.webSocket = new egret.WebSocket();
+        this.webSocket.addEventListener(egret.ProgressEvent.SOCKET_DATA, function (e: egret.Event): void {
+            let msg = self.webSocket.readUTF();
+            console.log("websocket Receive data:" + msg);
+        }, this);
+
+        this.webSocket.addEventListener(egret.Event.CONNECT, function (): void {
+            let cmd = "Hello Egret WebSocket";
+            console.log("The websocket connection is successful, send data: " + cmd);
+            self.webSocket.writeUTF(cmd);
+        }, this);
+
+        this.webSocket.connect("echo.websocket.org", 80);
 
 
         /*let sky = this.createBitmapByName("bg_jpg");
